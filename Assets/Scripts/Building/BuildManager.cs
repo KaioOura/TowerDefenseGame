@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.AI;
 
 public class BuildManager : MonoBehaviour
 {
+    public static BuildManager Instance;
+
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private Transform Target;
     [SerializeField] private LayerMask layerMask;
@@ -15,7 +18,23 @@ public class BuildManager : MonoBehaviour
     public ObjectPlaceable turret;
     private Collider turretCollider;
 
+    public ObjectPlaceable CurrentPlaceable => currentTurret;
+
     private ObjectPlaceable currentTurret;
+
+    public static event Action<ObjectData> OnObjectPlaced;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +46,6 @@ public class BuildManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            var GO = Instantiate(turret);
-            currentTurret = GO.GetComponent<TurretPlaceable>();
-        }
 
         UpdateObjectPosition();
 
@@ -41,23 +55,39 @@ public class BuildManager : MonoBehaviour
         }
     }
 
+    public static void PreparePlacement(ObjectData objectData)
+    {
+        if (Instance == null)
+            return;
+
+        Instance.PrepareLocalPlacement(objectData);
+    }
+
+    public void PrepareLocalPlacement(ObjectData objectData)
+    {
+        var GO = Instantiate(objectData.GameObjectPrefab);
+        currentTurret = GO.GetComponent<Turret>();
+    }
+
     void TryToPlaceObject()
     {
-        if (currentTurret == null)
+        if (CurrentPlaceable == null)
             return;
 
-        if (currentTurret.IsColliding || !PathFinder.IsPathValid)
+        if (CurrentPlaceable.IsColliding || !PathFinder.IsPathValid)
             return;
 
-        Instantiate(currentTurret.ObjectData.GameObjectPrefab, currentTurret.transform.position, currentTurret.transform.rotation);
+        OnObjectPlaced?.Invoke(currentTurret.ObjectData);
 
-        Destroy(currentTurret.gameObject);
+        Instantiate(CurrentPlaceable.ObjectData.GameObjectPrefab, CurrentPlaceable.transform.position, CurrentPlaceable.transform.rotation);
+
+        Destroy(CurrentPlaceable.gameObject);
 
     }
 
     void UpdateObjectPosition()
     {
-        if (currentTurret == null)
+        if (CurrentPlaceable == null)
             return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -65,7 +95,7 @@ public class BuildManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 10000, layerMask))
         {
-            currentTurret.transform.position = new Vector3(hit.point.x, hit.point.y + (currentTurret.Collider.bounds.size.y + 0.1f) / 2, hit.point.z);
+            CurrentPlaceable.transform.position = new Vector3(hit.point.x, hit.point.y + (CurrentPlaceable.Collider.bounds.size.y + 0.1f) / 2, hit.point.z);
         }
     }
 

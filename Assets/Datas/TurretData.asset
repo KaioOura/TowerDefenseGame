@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0348c9c9b06cb604a947ce459678fc06, type: 3}
   m_Name: TurretData
   m_EditorClassIdentifier: 
+  _name: Turret_Base
+  _sprite: {fileID: 21300000, guid: 9c0d6ec706e01ce448aea81584af092b, type: 3}
+  _price: 10
   _gameObjectPrefab: {fileID: 6088241140653359494, guid: dcdd5dd5cd7834140a4eff63c98bcf07,
     type: 3}
