@@ -12,7 +12,7 @@ public class ObjectPlaceable : MonoBehaviour
     public bool IsColliding => _isColliding;
     public Collider Collider => _collider;
 
-    private void Awake()
+    public virtual void Awake()
     {
         _collider = GetComponent<Collider>();
     }
