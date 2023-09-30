@@ -93,6 +93,6 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
 
     public virtual void ResetShot()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class Turret : ObjectPlaceable
 {
@@ -45,8 +46,10 @@ public class Turret : ObjectPlaceable
 
     void Shoot()
     {
-        IShotInitializer turretShot = Instantiate(_turretData.TurretShot);
+        Profiler.BeginSample("SpawnShot");
+        IShotInitializer turretShot = Pooling.GetTurretShotBase(_turretData.TurretShot, transform.position);// Instantiate(_turretData.TurretShot);
         turretShot.Initialize(level, _turretData.ShotTravelType, _enemyTarget);
+        Profiler.EndSample();
 
         _lastTimeShot = Time.time;
     }
@@ -60,7 +63,7 @@ public class Turret : ObjectPlaceable
     {
         if (_enemyTarget != null)
         {
-            if (Vector3.Distance(transform.position, _enemyTarget.GetTransform().position) > _currentTurretStats.Range)
+            if (Vector3.Distance(transform.position, _enemyTarget.GetTransform().position) > _currentTurretStats.Range || !_enemyTarget.GetTransform().gameObject.activeSelf)
                 _enemyTarget = null;
 
             return;
