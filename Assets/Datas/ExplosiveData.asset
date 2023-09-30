@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: ExplosiveData
   m_EditorClassIdentifier: 
   _explosiveShotStats:
-  - Damage: 0
+  - Damage: 5
     DoStagger: 0
-    ExplosionRadius: 0
-    ExplosionDamage: 0
-  - Damage: 0
+    ExplosionRadius: 1
+    ExplosionDamage: 10
+  - Damage: 5
     DoStagger: 0
-    ExplosionRadius: 0
-    ExplosionDamage: 0
+    ExplosionRadius: 1.5
+    ExplosionDamage: 15
+  - Damage: 7
+    DoStagger: 0
+    ExplosionRadius: 2
+    ExplosionDamage: 20

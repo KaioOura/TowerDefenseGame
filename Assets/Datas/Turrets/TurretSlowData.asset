@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TurretSlowData
   m_EditorClassIdentifier: 
   _name: Turret_Base
-  _sprite: {fileID: 21300000, guid: 9c0d6ec706e01ce448aea81584af092b, type: 3}
-  _price: 10
-  _gameObjectPrefab: {fileID: 5645639639947767104, guid: e9406642882b5fd44be1e9002bd3ff08,
+  _sprite: {fileID: 21300000, guid: ec03f79379868c642b48ae5ddc821b6d, type: 3}
+  _price: 30
+  _gameObjectPrefab: {fileID: 7111903454159465551, guid: ea4a74644121e974cae97b5a8effacc6,
     type: 3}
   _turretShot: {fileID: 2950568016246089011, guid: d61c5191fe8b0154d96bf2eaa61241a8,
     type: 3}
@@ -26,4 +26,7 @@ MonoBehaviour:
     FireRate: 2
   - Range: 5
     FireRate: 1
-  _shotTravelType: 0
+  _shotTravelType: 1
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128

@@ -7,13 +7,14 @@ public class TurretData : ObjectData
 {
     [SerializeField] private TurretShotBase _turretShot;
     [SerializeField] private TurretStats[] _turretLevel;
-
     [SerializeField] private ShotTravelEnum _shotTravelType;
+    [SerializeField] private LayerMask _enemyLayer;
 
 
     public TurretShotBase TurretShot => _turretShot;
     public TurretStats[] TurretLevel => _turretLevel;
     public ShotTravelEnum ShotTravelType => _shotTravelType;
+    public LayerMask EnemyLayer => _enemyLayer;
 
     public TurretStats GetStat(int level)
     {

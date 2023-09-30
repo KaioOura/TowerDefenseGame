@@ -21,18 +21,12 @@ public class TurretExplosiveShot : TurretShotBase
         _explosiveDamage = _currentShotStats.ExplosionDamage;
     }
 
-    public override void Initialize(int level, ShotTravelEnum shotTravelEnum)
+    public override void Initialize(int level, ShotTravelEnum shotTravelEnum, ITargetable target)
     {
-        Level = level;
         ShotTravelType = shotTravelEnum;
         UpdateShotStats(level);
 
-        LaunchShot();
+        LaunchShot(target);
     }
 
-
-    public override void LaunchShot()
-    {
-        
-    }
 }
