@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TurretShotBase : MonoBehaviour, IShotInitializer
 {
-    public float Damage { get; set; }
     public ShotTravelEnum ShotTravelType { get; set; }
+    public CharacterEffectPack CharacterEffectPack { get; set ; }
 
     private IEnumerator FollowTargetRoutine;
     private IEnumerator FollowPositionRoutine;
 
+    protected event Action OnTargetReached;
+
     public virtual void Initialize(int level, ShotTravelEnum shotTravelEnum, ITargetable target)
     {
-     
+
     }
 
     public virtual void LaunchShot(ITargetable target)
@@ -73,7 +76,8 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
             }
         }
 
-        target.GetHealthSystem().TakeDamage(Damage);
+        target.ApplyCharacterEffect(CharacterEffectPack);
+        OnTargetReached?.Invoke();
 
 
         ResetShot();
@@ -95,4 +99,5 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
     {
         gameObject.SetActive(false);
     }
+
 }

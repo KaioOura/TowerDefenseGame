@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IShotInitializer
 {
-    public float Damage { get; set; }
+    public CharacterEffectPack CharacterEffectPack { get; set; }
     public ShotTravelEnum ShotTravelType { get; set; }
 
     public void Initialize(int level, ShotTravelEnum shotTravelEnum, ITargetable target);

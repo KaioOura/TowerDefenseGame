@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4360736731577257495}
   - component: {fileID: 3763667984872754958}
   - component: {fileID: 8490696465893581416}
+  - component: {fileID: 1972155345393404715}
   - component: {fileID: 6504126858073303476}
   - component: {fileID: 8242627900453058675}
   m_Layer: 7
@@ -48,7 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50f6f1ed166618498c94fc9bc876533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyData: {fileID: 0}
   _healthSystem: {fileID: 8490696465893581416}
+  _navMeshAgent: {fileID: 8242627900453058675}
+  TargetSpot: {fileID: 0}
+  _characterEffect: {fileID: 1972155345393404715}
 --- !u!114 &8490696465893581416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +64,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50be30d2ec014e14791e7851eec3f1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1972155345393404715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136858984328388935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd09d5551d54eb1439cd2e0ff4cd87f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &6504126858073303476

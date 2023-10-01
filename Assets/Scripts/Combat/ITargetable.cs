@@ -18,4 +18,9 @@ public interface ITargetable
     {
         return null;
     }
+
+    public void ApplyCharacterEffect(CharacterEffectPack characterEffectPack)
+    {
+
+    }
 }

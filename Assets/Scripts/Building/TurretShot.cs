@@ -10,9 +10,8 @@ public class TurretShot : TurretShotBase
     public override void UpdateShotStats(int i)
     {
         _currentShotStats = ShotData.GetShotStat(i);
-        Damage = _currentShotStats.Damage;
+        CharacterEffectPack = _currentShotStats.CharacterEffectPack;
     }
-
 
     public override void Initialize(int level, ShotTravelEnum shotTravelEnum, ITargetable target)
     {
