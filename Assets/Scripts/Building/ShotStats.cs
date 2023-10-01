@@ -5,13 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class ShotStats
 {
-    public CharacterEffectPack CharacterEffectPack;
+    public CharacterEffectPack ShotCharacterEffectPack;
 }
 
 [System.Serializable]
-public class ExplosiveShotStats : ShotStats
+public class AreaShotStats : ShotStats
 {
-    public CharacterEffectPack ExplosiveCharacterEffectPack;
-    public float ExplosionRadius;
+    public CharacterEffectPack AreaCharacterEffectPack;
+    public float AreaRadius;
 }
 

@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: StandarShotData
   m_EditorClassIdentifier: 
   _shotStats:
-  - CharacterEffectPack:
-      _effectEnum: 5
+  - ShotCharacterEffectPack:
+      _effectEnum: 1
       _damage: 10
       _heal: 0
-      _staggerTime: 5
-      _slowTime: 1
-      _slowAmount: 2
+      _staggerTime: 0
+      _slowTime: 0
+      _slowAmount: 0
       _speedTime: 0
       _speedAmount: 0
-  - CharacterEffectPack:
+  - ShotCharacterEffectPack:
       _effectEnum: 1
       _damage: 15
       _heal: 0
@@ -31,11 +31,11 @@ MonoBehaviour:
       _slowAmount: 0
       _speedTime: 0
       _speedAmount: 0
-  - CharacterEffectPack:
-      _effectEnum: 1
+  - ShotCharacterEffectPack:
+      _effectEnum: 3
       _damage: 20
       _heal: 0
-      _staggerTime: 0.7
+      _staggerTime: 0.2
       _slowTime: 0
       _slowAmount: 0
       _speedTime: 0

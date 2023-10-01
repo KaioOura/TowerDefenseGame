@@ -314,7 +314,7 @@ PrefabInstance:
     - target: {fileID: 3632646017408683319, guid: f644ea15fc586194387b00f07a12ea5e,
         type: 3}
       propertyPath: m_Name
-      value: TurretSlow_Playable
+      value: TurretSlow_Playable Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4880473533300398572, guid: f644ea15fc586194387b00f07a12ea5e,
         type: 3}

@@ -21,10 +21,10 @@ MonoBehaviour:
     type: 3}
   _turretLevel:
   - Range: 5
-    FireRate: 1
-  - Range: 3
     FireRate: 2
-  - Range: 5
+  - Range: 7
+    FireRate: 1.5
+  - Range: 9
     FireRate: 1
   _shotTravelType: 1
   _enemyLayer:

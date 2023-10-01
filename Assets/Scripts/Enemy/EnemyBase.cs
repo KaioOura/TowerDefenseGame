@@ -23,18 +23,16 @@ public class EnemyBase : MonoBehaviour, ITargetable
     protected IEnumerator WaitStaggerRoutine;
     protected IEnumerator WaitSlowRoutine;
 
-    private void Awake()
+    public virtual void Awake()
     {
         TargetSpot = GameObject.Find("Target").transform;
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         _healthSystem.Initialize(_enemyData.MaxHealth);
         _navMeshAgent.SetDestination(TargetSpot.position);
-
-
     }
 
     private void OnDestroy()
@@ -42,21 +40,23 @@ public class EnemyBase : MonoBehaviour, ITargetable
 
     }
 
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         _navMeshAgent.SetDestination(TargetSpot.position);
         _characterEffect.OnReceiveDamage += OnTakeDamage;
         _characterEffect.OnReceiveStagger += OnStagger;
         _characterEffect.OnReceiveSlow += OnSlow;
+        _characterEffect.OnReceiveHeal += OnHeal;
         _healthSystem.OnDeath += OnDie;
     }
 
-    private void OnDisable()
+    public virtual void OnDisable()
     {
-        _healthSystem.OnDeath -= OnDie;
         _characterEffect.OnReceiveDamage -= OnTakeDamage;
         _characterEffect.OnReceiveStagger -= OnStagger;
         _characterEffect.OnReceiveSlow -= OnSlow;
+        _characterEffect.OnReceiveHeal -= OnHeal;
+        _healthSystem.OnDeath -= OnDie;
     }
 
     // Update is called once per frame
@@ -85,6 +85,11 @@ public class EnemyBase : MonoBehaviour, ITargetable
         _healthSystem.TakeDamage(damage);
     }
 
+    void OnHeal(float healAmount)
+    {
+        _healthSystem.Heal(healAmount);
+    }
+
     void OnSlow(float amount, float duration)
     {
         if (WaitSlowRoutine != null)
@@ -96,6 +101,8 @@ public class EnemyBase : MonoBehaviour, ITargetable
 
     IEnumerator WaitSlow(float amount, float duration)
     {
+        amount = Mathf.Clamp(amount, 1, 5);
+
         _navMeshAgent.speed = _navMeshAgent.speed / amount;
 
         yield return new WaitForSeconds(duration);

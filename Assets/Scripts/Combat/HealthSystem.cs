@@ -51,7 +51,7 @@ public class HealthSystem : MonoBehaviour
         OnDeath?.Invoke();
     }
 
-    void Heal(float heal)
+    public void Heal(float heal)
     {
         _currentHealth += heal;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);

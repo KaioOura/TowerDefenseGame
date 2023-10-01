@@ -20,12 +20,12 @@ MonoBehaviour:
   _turretShot: {fileID: 2950568016246089011, guid: d61c5191fe8b0154d96bf2eaa61241a8,
     type: 3}
   _turretLevel:
-  - Range: 4.82
-    FireRate: 0.5
   - Range: 3
-    FireRate: 2
-  - Range: 5
+    FireRate: 1.5
+  - Range: 4
     FireRate: 1
+  - Range: 6
+    FireRate: 0.5
   _shotTravelType: 0
   _enemyLayer:
     serializedVersion: 2

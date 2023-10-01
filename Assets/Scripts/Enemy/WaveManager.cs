@@ -44,7 +44,7 @@ public class WaveManager : MonoBehaviour
     {
         float time = 0;
 
-        while (_spawns < _waves[_waveLevel].Enemies.Length - 1)
+        while (_spawns < _waves[_waveLevel].Enemies.Length)
         {
             time += Time.deltaTime;
 

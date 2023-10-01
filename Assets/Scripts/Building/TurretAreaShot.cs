@@ -2,33 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretExplosiveShot : TurretShotBase
+public class TurretAreaShot : TurretShotBase
 {
-    [SerializeField] private ExplosiveShotData _explosiveShotData;
-    private ExplosiveShotStats _currentShotStats;
-
-    private CharacterEffectPack _explosiveCharacterEffectPack;
-
+    [SerializeField] private AreaShotData _explosiveShotData;
+    private AreaShotStats _currentShotStats;
 
     private float _radius;
-    private float _explosiveDamage;
 
     private void OnEnable()
     {
-        OnTargetReached += Explode;
+        OnTargetReached += AreaHit;
     }
 
     private void OnDisable()
     {
-        OnTargetReached -= Explode;
+        OnTargetReached -= AreaHit;
     }
 
     public override void UpdateShotStats(int i)
     {
-        _currentShotStats = _explosiveShotData.GetExplosiveShotStat(i);
+        _currentShotStats = _explosiveShotData.GetAreaShotStat(i);
 
-        CharacterEffectPack = _currentShotStats.CharacterEffectPack;
-        _radius = _currentShotStats.ExplosionRadius;
+        CharacterEffectPack = _currentShotStats.ShotCharacterEffectPack;
+        _radius = _currentShotStats.AreaRadius;
     }
 
     public override void Initialize(int level, ShotTravelEnum shotTravelEnum, ITargetable target)
@@ -39,14 +35,14 @@ public class TurretExplosiveShot : TurretShotBase
         LaunchShot(target);
     }
 
-    void Explode()
+    void AreaHit()
     {
         Collider[] enemies = Physics.OverlapSphere(transform.position, _radius, _explosiveShotData.EnemyLayer);
 
         foreach (var item in enemies)
         {
             if (item.TryGetComponent(out ITargetable targetable))
-                targetable.ApplyCharacterEffect(_currentShotStats.ExplosiveCharacterEffectPack);
+                targetable.ApplyCharacterEffect(_currentShotStats.AreaCharacterEffectPack);
         }
     }
 

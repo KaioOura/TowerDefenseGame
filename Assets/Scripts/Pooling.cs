@@ -11,13 +11,22 @@ public class Pooling : MonoBehaviour
     private List<TurretShotBase> _turretShotList = new List<TurretShotBase>();
 
     [SerializeField]
-    private TurretExplosiveShot _turretExplosiveShot;
+    private TurretAreaShot _turretExplosiveShot;
     private List<TurretShotBase> _turretExplosiveShotList = new List<TurretShotBase>();
+
+    [SerializeField]
+    private TurretAreaShot _turretSlowShot;
+    private List<TurretShotBase> _turretSlowShotList = new List<TurretShotBase>();
 
     [SerializeField]
     private EnemyBase _enemyBase;
     [SerializeField]
     private List<EnemyBase> _enemyBaseList;
+
+    [SerializeField]
+    private EnemyBase _enemyHealer;
+    [SerializeField]
+    private List<EnemyBase> _enemyHealerList;
 
     private void Awake()
     {
@@ -30,9 +39,12 @@ public class Pooling : MonoBehaviour
 
     void SpawnPrefabs()
     {
-        SpawnTurretShot(100);
-        SpawnExplosiveShot(100);
-        SpawnEnemy(_enemyBase, 100);
+        SpawnTurretShot(_turretShot, 100);
+        SpawnTurretShot(_turretExplosiveShot, 100);
+        SpawnTurretShot(_turretSlowShot, 100);
+
+        SpawnEnemy(_enemyBase, 50);
+        SpawnEnemy(_enemyHealer, 50);
     }
 
 
@@ -54,7 +66,7 @@ public class Pooling : MonoBehaviour
         TurretShotBase turretShot = Instance.GetTurretShotFromList(turretShotBase);
 
         if (turretShot == null)
-            turretShot = Instance.SpawnTurretShot(turretShotBase);
+            turretShot = Instance.SpawnTurretShot(turretShotBase, 1);
 
         turretShot.transform.position = startPos;
 
@@ -65,12 +77,19 @@ public class Pooling : MonoBehaviour
 
     EnemyBase GetEnemyFromList(EnemyBase enemyBase)
     {
-        for (int i = 0; i < _enemyBaseList.Count; i++)
+        List<EnemyBase> List = new List<EnemyBase>();
+
+        if (enemyBase == _enemyBase)
+            List = _enemyBaseList;
+        else if (enemyBase == _enemyHealer)
+            List = _enemyHealerList;
+
+        for (int i = 0; i < List.Count; i++)
         {
-            if (_enemyBaseList[i].isActiveAndEnabled)
+            if (List[i].isActiveAndEnabled)
                 continue;
 
-            return _enemyBaseList[i];
+            return List[i];
         }
 
         return null;
@@ -78,27 +97,22 @@ public class Pooling : MonoBehaviour
 
     TurretShotBase GetTurretShotFromList(TurretShotBase turretShotBase)
     {
+        List<TurretShotBase> List = new List<TurretShotBase>();
+
         if (turretShotBase == _turretShot)
+            List = _turretShotList;
+        else if (turretShotBase == _turretExplosiveShot)
+            List = _turretExplosiveShotList;
+        else
+            List = _turretSlowShotList;
+
+        for (int i = 0; i < List.Count; i++)
         {
-            for (int i = 0; i < _turretShotList.Count; i++)
-            {
-                if (_turretShotList[i].isActiveAndEnabled)
-                    continue;
+            if (List[i].isActiveAndEnabled)
+                continue;
 
-                return _turretShotList[i];
-            }
+            return List[i];
         }
-        else if (turretShotBase == Instance._turretExplosiveShot)
-        {
-            for (int i = 0; i < _turretExplosiveShotList.Count; i++)
-            {
-                if (_turretExplosiveShotList[i].isActiveAndEnabled)
-                    continue;
-
-                return _turretExplosiveShotList[i];
-            }
-        }
-
 
         return null;
     }
@@ -106,13 +120,19 @@ public class Pooling : MonoBehaviour
     EnemyBase SpawnEnemy(EnemyBase enemyBase, int num)
     {
         EnemyBase enemy = null;
+        List<EnemyBase> listToAdd = new List<EnemyBase>();
+
+
+        if (enemyBase == _enemyBase)
+            listToAdd = _enemyBaseList;
+        else if (enemyBase == _enemyHealer)
+            listToAdd = _enemyHealerList;
 
         for (int i = 0; i < num; i++)
         {
-            enemy = Instantiate(_enemyBase);
+            enemy = Instantiate(enemyBase);
+            listToAdd.Add(enemy);
             enemy.gameObject.SetActive(false);
-
-            _enemyBaseList.Add(enemy);
         }
 
         return enemy;
@@ -130,24 +150,31 @@ public class Pooling : MonoBehaviour
         }
     }
 
-    TurretShotBase SpawnTurretShot(TurretShotBase turretShotBase)
+    TurretShotBase SpawnTurretShot(TurretShotBase turretShotBase, int num)
     {
-        TurretShotBase turretShot;
+        TurretShotBase turretShot = null;
+        List<TurretShotBase> listToAdd = new List<TurretShotBase>();
 
-        turretShot = Instantiate(_turretShot);
-        turretShot.gameObject.SetActive(false);
+        if (turretShotBase == _turretShot)
+            listToAdd = _turretShotList;
+        else if (turretShotBase == _turretExplosiveShot)
+            listToAdd = _turretExplosiveShotList;
+        else
+            listToAdd = _turretSlowShotList;
 
-        if (turretShotBase == Instance._turretShot)
-            _turretShotList.Add(turretShot);
-        else if (turretShotBase == Instance._turretExplosiveShot)
-            _turretExplosiveShotList.Add(turretShot);
+        for (int i = 0; i < num; i++)
+        {
+            turretShot = Instantiate(turretShotBase);
+             listToAdd.Add(turretShot);
+            turretShot.gameObject.SetActive(false);
+        }
 
         return turretShot;
     }
 
     void SpawnExplosiveShot(int num)
     {
-        TurretExplosiveShot turretShot;
+        TurretAreaShot turretShot;
 
         for (int i = 0; i < num; i++)
         {

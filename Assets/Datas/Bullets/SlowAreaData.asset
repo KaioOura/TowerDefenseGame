@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 101c603797865dd49bc8370ea54fa115, type: 3}
-  m_Name: ExplosiveData
+  m_Name: SlowAreaData
   m_EditorClassIdentifier: 
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
   _areaShotStats:
   - ShotCharacterEffectPack:
-      _effectEnum: 1
-      _damage: 7
+      _effectEnum: 0
+      _damage: 0
       _heal: 0
       _staggerTime: 0
       _slowTime: 0
@@ -26,18 +26,18 @@ MonoBehaviour:
       _speedTime: 0
       _speedAmount: 0
     AreaCharacterEffectPack:
-      _effectEnum: 3
-      _damage: 7
+      _effectEnum: 4
+      _damage: 0
       _heal: 0
-      _staggerTime: 0.1
-      _slowTime: 0
-      _slowAmount: 0
+      _staggerTime: 0
+      _slowTime: 2
+      _slowAmount: 1.2
       _speedTime: 0
       _speedAmount: 0
     AreaRadius: 2
   - ShotCharacterEffectPack:
-      _effectEnum: 1
-      _damage: 10
+      _effectEnum: 0
+      _damage: 0
       _heal: 0
       _staggerTime: 0
       _slowTime: 0
@@ -45,31 +45,31 @@ MonoBehaviour:
       _speedTime: 0
       _speedAmount: 0
     AreaCharacterEffectPack:
-      _effectEnum: 3
-      _damage: 10
-      _heal: 0
-      _staggerTime: 0.2
-      _slowTime: 0
-      _slowAmount: 0
-      _speedTime: 0
-      _speedAmount: 0
-    AreaRadius: 2.5
-  - ShotCharacterEffectPack:
-      _effectEnum: 1
-      _damage: 12
+      _effectEnum: 4
+      _damage: 0
       _heal: 0
       _staggerTime: 0
-      _slowTime: 0
-      _slowAmount: 0
-      _speedTime: 0
-      _speedAmount: 0
-    AreaCharacterEffectPack:
-      _effectEnum: 3
-      _damage: 20
-      _heal: 0
-      _staggerTime: 0.2
-      _slowTime: 0
-      _slowAmount: 0
+      _slowTime: 2
+      _slowAmount: 1.5
       _speedTime: 0
       _speedAmount: 0
     AreaRadius: 3
+  - ShotCharacterEffectPack:
+      _effectEnum: 0
+      _damage: 0
+      _heal: 0
+      _staggerTime: 0
+      _slowTime: 0
+      _slowAmount: 0
+      _speedTime: 0
+      _speedAmount: 0
+    AreaCharacterEffectPack:
+      _effectEnum: 4
+      _damage: 0
+      _heal: 0
+      _staggerTime: 0
+      _slowTime: 2
+      _slowAmount: 2
+      _speedTime: 0
+      _speedAmount: 0
+    AreaRadius: 3.5
