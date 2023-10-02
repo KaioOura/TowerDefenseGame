@@ -8,7 +8,11 @@ public class HealthSystem : MonoBehaviour
     private float _maxHealth;
     private float _currentHealth;
 
-    public event Action OnDeath; // Inscrever método que chama o pooling para retornar esse objeto para a lista
+
+    public float CurrentHealth => _currentHealth;
+
+    public event Action OnDeath;
+    public event Action<float, float> OnHealthChange;
 
     private void Start()
     {
@@ -30,6 +34,8 @@ public class HealthSystem : MonoBehaviour
         _maxHealth = maxHealth;
 
         _currentHealth = _maxHealth;
+
+        OnHealthChange?.Invoke(_currentHealth, _maxHealth);
     }
 
     public void TakeDamage(float damage)
@@ -45,6 +51,8 @@ public class HealthSystem : MonoBehaviour
         _currentHealth -= finalDamage;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
 
+        OnHealthChange?.Invoke(_currentHealth, _maxHealth);
+
         if (_currentHealth > 0)
             return;
 
@@ -55,6 +63,8 @@ public class HealthSystem : MonoBehaviour
     {
         _currentHealth += heal;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+
+        OnHealthChange?.Invoke(_currentHealth, _maxHealth);
     }
 
     void ResetHealth()

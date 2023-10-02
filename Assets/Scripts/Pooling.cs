@@ -28,6 +28,11 @@ public class Pooling : MonoBehaviour
     [SerializeField]
     private List<EnemyBase> _enemyHealerList;
 
+    [SerializeField]
+    private EnemyBase _enemyTank;
+    [SerializeField]
+    private List<EnemyBase> _enemyTankList;
+
     private void Awake()
     {
         Instance = this;
@@ -45,6 +50,7 @@ public class Pooling : MonoBehaviour
 
         SpawnEnemy(_enemyBase, 50);
         SpawnEnemy(_enemyHealer, 50);
+        SpawnEnemy(_enemyTank, 50);
     }
 
 
@@ -83,6 +89,8 @@ public class Pooling : MonoBehaviour
             List = _enemyBaseList;
         else if (enemyBase == _enemyHealer)
             List = _enemyHealerList;
+        else if (enemyBase == _enemyTank)
+            List = _enemyTankList;
 
         for (int i = 0; i < List.Count; i++)
         {
@@ -127,6 +135,8 @@ public class Pooling : MonoBehaviour
             listToAdd = _enemyBaseList;
         else if (enemyBase == _enemyHealer)
             listToAdd = _enemyHealerList;
+        else if (enemyBase == _enemyTank)
+            listToAdd = _enemyTankList;
 
         for (int i = 0; i < num; i++)
         {

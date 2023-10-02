@@ -5,6 +5,7 @@ using System;
 
 public class TurretShotBase : MonoBehaviour, IShotInitializer
 {
+    public float Speed { get; set; }
     public ShotTravelEnum ShotTravelType { get; set; }
     public CharacterEffectPack CharacterEffectPack { get; set ; }
 
@@ -13,7 +14,7 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
 
     protected event Action OnTargetReached;
 
-    public virtual void Initialize(int level, ShotTravelEnum shotTravelEnum, ITargetable target)
+    public virtual void Initialize(int level, float speed, ShotTravelEnum shotTravelEnum, ITargetable target)
     {
 
     }
@@ -23,10 +24,10 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
         FollowTarget(target);
         return;
 
-        if (ShotTravelType == ShotTravelEnum.FollowTarget)
-            FollowTarget(target);
-        else
-            FollowPosition(target.GetTransform().position);
+        //if (ShotTravelType == ShotTravelEnum.FollowTarget)
+        //    FollowTarget(target);
+        //else
+        //    FollowPosition(target.GetTransform().position);
 
     }
 
@@ -44,14 +45,14 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
         StartCoroutine(FollowTargetRoutine);
     }
 
-    public virtual void FollowPosition(Vector3 position)
-    {
-        if (FollowPositionRoutine != null)
-            StopCoroutine(FollowPositionRoutine);
+    //public virtual void FollowPosition(Vector3 position)
+    //{
+    //    if (FollowPositionRoutine != null)
+    //        StopCoroutine(FollowPositionRoutine);
 
-        FollowPositionRoutine = FollowPositionCoroutine(position);
-        StartCoroutine(FollowPositionRoutine);
-    }
+    //    FollowPositionRoutine = FollowPositionCoroutine(position);
+    //    StartCoroutine(FollowPositionRoutine);
+    //}
 
     IEnumerator FollowTargetCoroutine(ITargetable target)
     {
@@ -61,7 +62,7 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
         {
             while (Vector3.Distance(transform.position, target.GetTransform().position) >= 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target.GetTransform().position, Time.deltaTime * 10);
+                transform.position = Vector3.MoveTowards(transform.position, target.GetTransform().position, Time.deltaTime * Speed);
 
                 yield return null;
             }
@@ -70,7 +71,7 @@ public class TurretShotBase : MonoBehaviour, IShotInitializer
         {
             while (Vector3.Distance(transform.position, targetPos) >= 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * Speed);
 
                 yield return null;
             }

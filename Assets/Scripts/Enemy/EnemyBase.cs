@@ -20,6 +20,9 @@ public class EnemyBase : MonoBehaviour, ITargetable
     [SerializeField]
     private CharacterEffect _characterEffect;
 
+    public HealthSystem HealthSystem => _healthSystem;
+    public EnemyData EnemyData => _enemyData;
+
     protected IEnumerator WaitStaggerRoutine;
     protected IEnumerator WaitSlowRoutine;
 
@@ -31,8 +34,16 @@ public class EnemyBase : MonoBehaviour, ITargetable
     // Start is called before the first frame update
     public virtual void Start()
     {
-        _healthSystem.Initialize(_enemyData.MaxHealth);
         _navMeshAgent.SetDestination(TargetSpot.position);
+    }
+
+    void Update()
+    {
+        if (Vector3.Distance(transform.position, TargetSpot.position) <= 1f)
+        {
+            Player.TakeDamage(_enemyData.Damage);
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()
@@ -48,6 +59,9 @@ public class EnemyBase : MonoBehaviour, ITargetable
         _characterEffect.OnReceiveSlow += OnSlow;
         _characterEffect.OnReceiveHeal += OnHeal;
         _healthSystem.OnDeath += OnDie;
+
+        _healthSystem.Initialize(_enemyData.MaxHealth);
+        _navMeshAgent.speed = _enemyData.Speed;
     }
 
     public virtual void OnDisable()
@@ -57,12 +71,6 @@ public class EnemyBase : MonoBehaviour, ITargetable
         _characterEffect.OnReceiveSlow -= OnSlow;
         _characterEffect.OnReceiveHeal -= OnHeal;
         _healthSystem.OnDeath -= OnDie;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public Transform GetTransform()
@@ -93,7 +101,7 @@ public class EnemyBase : MonoBehaviour, ITargetable
     void OnSlow(float amount, float duration)
     {
         if (WaitSlowRoutine != null)
-            return;
+            StopCoroutine(WaitSlowRoutine);
 
         WaitSlowRoutine = WaitSlow(amount, duration);
         StartCoroutine(WaitSlowRoutine);
@@ -134,6 +142,8 @@ public class EnemyBase : MonoBehaviour, ITargetable
 
     void OnDie()
     {
+        Player.AddCurrency(_enemyData.DropGold);
+        Player.AddPoint(_enemyData.DropPoint);
         gameObject.SetActive(false);
     }
 }

@@ -5,16 +5,22 @@ using UnityEngine;
 public class ObjectPlaceable : MonoBehaviour
 {
     protected bool _isColliding;
+    protected bool isOn;
     protected Collider _collider;
+
+    [SerializeField]
+    protected LayerMask _collisionLayer;
+
     [SerializeField] private ObjectData _objectData;
     public ObjectData ObjectData => _objectData;
 
-    public bool IsColliding => _isColliding;
+    //public bool IsColliding => _isColliding;
     public Collider Collider => _collider;
 
     public virtual void Awake()
     {
         _collider = GetComponent<Collider>();
+        _collider.enabled = false;
     }
 
     // Start is called before the first frame update
@@ -24,23 +30,46 @@ public class ObjectPlaceable : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
-        
+        if (isOn)
+            return;
+
+
     }
 
-    public virtual void OnTriggerEnter(Collider other)
+    public virtual bool IsColliding()
     {
-        _isColliding = true;
+        var colliders = Physics.OverlapBox(transform.position, new Vector3(_collider.bounds.size.x, _collider.bounds.size.y, _collider.bounds.size.z));
+
+        return colliders.Length > 0;
     }
 
-    public virtual void OnTriggerStay(Collider other)
+    private void OnDrawGizmos()
     {
-        _isColliding = true;
+        if (!_collider)
+            return;
+
+        Gizmos.DrawCube(transform.position, new Vector3(_collider.bounds.size.x, _collider.bounds.size.y, _collider.bounds.size.z));
     }
 
-    public virtual void OnTriggerExit(Collider other)
+    public void TurnOnOff(bool value)
     {
-        _isColliding = false;
+        isOn = value;
     }
+
+    //public virtual void OnTriggerEnter(Collider other)
+    //{
+    //    _isColliding = true;
+    //}
+
+    //public virtual void OnTriggerStay(Collider other)
+    //{
+    //    _isColliding = true;
+    //}
+
+    //public virtual void OnTriggerExit(Collider other)
+    //{
+    //    _isColliding = false;
+    //}
 }

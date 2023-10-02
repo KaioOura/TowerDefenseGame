@@ -18,9 +18,9 @@ public class BuildManager : MonoBehaviour
     public ObjectPlaceable turret;
     private Collider turretCollider;
 
-    public ObjectPlaceable CurrentPlaceable => currentTurret;
+    public ObjectPlaceable CurrentPlaceable => currentPlaceable;
 
-    private ObjectPlaceable currentTurret;
+    private ObjectPlaceable currentPlaceable;
 
     public static event Action<ObjectData> OnObjectPlaced;
 
@@ -66,7 +66,8 @@ public class BuildManager : MonoBehaviour
     public void PrepareLocalPlacement(ObjectData objectData)
     {
         var GO = Instantiate(objectData.GameObjectPrefab);
-        currentTurret = GO.GetComponent<Turret>();
+        currentPlaceable = GO.GetComponent<Turret>();
+        
     }
 
     void TryToPlaceObject()
@@ -74,14 +75,18 @@ public class BuildManager : MonoBehaviour
         if (CurrentPlaceable == null)
             return;
 
-        if (CurrentPlaceable.IsColliding || !PathFinder.IsPathValid)
+        if (CurrentPlaceable.IsColliding() || !PathFinder.IsPathValid)
             return;
 
-        OnObjectPlaced?.Invoke(currentTurret.ObjectData);
+        OnObjectPlaced?.Invoke(currentPlaceable.ObjectData);
+        currentPlaceable.TurnOnOff(true);
+        currentPlaceable.Collider.enabled = true;
 
-        Instantiate(CurrentPlaceable.ObjectData.GameObjectPrefab, CurrentPlaceable.transform.position, CurrentPlaceable.transform.rotation);
+        //currentPlaceable.transform.position
+        //Instantiate(CurrentPlaceable.ObjectData.GameObjectPrefab, CurrentPlaceable.transform.position, CurrentPlaceable.transform.rotation);
 
-        Destroy(CurrentPlaceable.gameObject);
+        //Destroy(CurrentPlaceable.gameObject);
+        currentPlaceable = null;
 
     }
 

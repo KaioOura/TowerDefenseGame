@@ -2,16 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
+using System;
 
 public class Turret : ObjectPlaceable
 {
     private int level = 1;
 
+    [SerializeField]
+    private DrawRadiusAround _visualRange;
+    [SerializeField]
+    private Transform _visual;
     private TurretData _turretData;
     private TurretStats _currentTurretStats;
     private ITargetable _enemyTarget;
-
     private float _lastTimeShot;
+
+    public TurretData TurretData => _turretData;
+    public int Level => level;
+    public bool IsMaxLevel => level >= _turretData.TurretLevel.Length;
+
+    public event Action OnUpgradeSuccess;
 
     public override void Awake()
     {
@@ -25,15 +35,31 @@ public class Turret : ObjectPlaceable
 
     }
 
-    private void Update()
+    public override void Update()
     {
+        if (!isOn)
+            return;
+
+        base.Update();
+
+        LookToEnemy();
         GetEnemiesInRange();
         CalcShooting();
+    }
+
+    void LookToEnemy()
+    {
+        if (_enemyTarget == null)
+            return;
+
+        Vector3 lookPos = new Vector3(_enemyTarget.GetTransform().position.x, transform.position.y, _enemyTarget.GetTransform().position.z);
+        _visual.LookAt(lookPos);
     }
 
     public virtual void UpdateTurretStats(int i)
     {
         _currentTurretStats = _turretData.GetStat(i);
+        _visualRange.CreatePoints(_currentTurretStats.Range);
     }
 
     public virtual void CalcShooting()
@@ -44,14 +70,17 @@ public class Turret : ObjectPlaceable
         Shoot();
     }
 
+
+
     void Shoot()
     {
         Profiler.BeginSample("SpawnShot");
         IShotInitializer turretShot = Pooling.GetTurretShotBase(_turretData.TurretShot, transform.position);// Instantiate(_turretData.TurretShot);
-        turretShot.Initialize(level, _turretData.ShotTravelType, _enemyTarget);
+        turretShot.Initialize(level, _turretData.BulletSpeed, _turretData.ShotTravelType, _enemyTarget);
         Profiler.EndSample();
 
         _lastTimeShot = Time.time;
+
     }
 
     bool CanShoot()
@@ -100,9 +129,31 @@ public class Turret : ObjectPlaceable
 
     }
 
-    private void OnDrawGizmos()
+    public void TryUpgrade()
     {
-        Gizmos.DrawSphere(transform.position, _currentTurretStats.Range);
+        if (level >= _turretData.TurretLevel.Length)
+            return;
+
+        if (!Shop.IsPurchaseValid(_turretData.GetStat(level + 1).Price))
+            return;
+
+        Shop.RemovePlayerCurrency(_turretData.GetStat(level + 1).Price);
+
+        Upgrade();
     }
+
+    void Upgrade()
+    {
+        level++;
+        UpdateTurretStats(level);
+
+        OnUpgradeSuccess?.Invoke();
+    }
+
+    //private void OnDrawGizmos()
+    //{
+    //    if (_currentTurretStats != null)
+    //        Gizmos.DrawSphere(transform.position, _currentTurretStats.Range);
+    //}
 
 }

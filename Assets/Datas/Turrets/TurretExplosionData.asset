@@ -13,18 +13,22 @@ MonoBehaviour:
   m_Name: TurretExplosionData
   m_EditorClassIdentifier: 
   _name: Turret_Base
-  _sprite: {fileID: 21300000, guid: a04ecc9d5e12d5d449077414eb86635e, type: 3}
-  _price: 20
+  _sprite: {fileID: 21300000, guid: f80213696cc394d49b5ff7d5ac79713f, type: 3}
+  _price: 50
   _gameObjectPrefab: {fileID: 5645639639947767104, guid: e9406642882b5fd44be1e9002bd3ff08,
     type: 3}
   _turretShot: {fileID: 6835615659468543286, guid: f328222ec50c4534f8ce0b336f0c721d,
     type: 3}
+  _buletSpeed: 15
   _turretLevel:
-  - Range: 5
-    FireRate: 2
-  - Range: 7
+  - Price: 0
+    Range: 3
     FireRate: 1.5
-  - Range: 9
+  - Price: 300
+    Range: 5
+    FireRate: 1.5
+  - Price: 400
+    Range: 7
     FireRate: 1
   _shotTravelType: 1
   _enemyLayer:

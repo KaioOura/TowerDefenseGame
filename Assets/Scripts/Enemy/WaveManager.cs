@@ -10,6 +10,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private Wave[] _waves;
 
+    [SerializeField]
+    private InfinityWave _infinityWave;
+
     private int _waveLevel;
     private int _spawns;
 
@@ -17,7 +20,7 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(WaitForWave());
+        GetWave();
     }
 
     // Update is called once per frame
@@ -26,31 +29,44 @@ public class WaveManager : MonoBehaviour
         
     }
 
-    IEnumerator WaitForWave()
+    void GetWave()
     {
         if (_waveLevel >= _waves.Length)
         {
-            //Fim de jogo
-            yield break;
+            _infinityWave.UpdateEnemyList(GetInfinityWaveEnemies());
+
+            StartCoroutine(WaitForWave(_infinityWave));
+
+            return;
         }
 
-        yield return new WaitForSeconds(_waves[_waveLevel].TimeToStart);
-
-        yield return StartCoroutine(SpawnEnemy());
-
+        StartCoroutine(WaitForWave(_waves[_waveLevel]));
     }
 
-    IEnumerator SpawnEnemy()
+    IEnumerator WaitForWave(Wave wave)
+    {
+        yield return new WaitForSeconds(wave.TimeToStart);
+
+        yield return StartCoroutine(SpawnEnemy(wave));
+
+        yield return new WaitForSeconds(wave.TimeToEnd);
+
+        _waveLevel++;
+
+        GetWave();
+    }
+
+    IEnumerator SpawnEnemy(Wave wave)
     {
         float time = 0;
 
-        while (_spawns < _waves[_waveLevel].Enemies.Length)
+        while (_spawns < wave.Enemies.Count)
         {
             time += Time.deltaTime;
 
-            if (time >= _waves[_waveLevel].TimeToSpawn)
+            if (time >= wave.TimeToSpawn)
             {
-                Pooling.GetEnemyBase(_waves[_waveLevel].Enemies[_spawns], _spawnPos.position);
+                Pooling.GetEnemyBase(wave.Enemies[_spawns], _spawnPos.position);
 
                 time = 0;
                 _spawns++;
@@ -59,14 +75,42 @@ public class WaveManager : MonoBehaviour
             yield return null;
         }
 
+        _spawns = 0;
+
+    }
+
+    List<EnemyBase> GetInfinityWaveEnemies()
+    {
+        List<EnemyBase> enemyBases = new List<EnemyBase>();
+
+        for (int i = 0; i < _infinityWave.MaxEnemy; i++)
+        {
+            int rand = Random.Range(0, _infinityWave.PossibleEnemies.Count);
+
+            enemyBases.Add(_infinityWave.PossibleEnemies[rand]);
+        }
+
+        return enemyBases;
     }
 }
 
 [System.Serializable]
 public class Wave
 {
-    public EnemyBase[] Enemies;
+    public List<EnemyBase> Enemies;
     public float TimeToStart;
     public float TimeToEnd;
     public float TimeToSpawn;
+}
+
+[System.Serializable]
+public class InfinityWave : Wave
+{
+    public List<EnemyBase> PossibleEnemies;
+    public int MaxEnemy;
+
+    public void UpdateEnemyList(List<EnemyBase> enemyBases)
+    {
+        Enemies = enemyBases;
+    }
 }

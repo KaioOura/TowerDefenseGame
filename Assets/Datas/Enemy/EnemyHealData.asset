@@ -15,14 +15,14 @@ MonoBehaviour:
   _healCharacterEffectPack:
     _effectEnum: 12
     _damage: 0
-    _heal: 0.2
+    _heal: 15
     _staggerTime: 0
     _slowTime: 0
     _slowAmount: 0
     _speedTime: 0
     _speedAmount: 0
   _healRadius: 2
-  _healInterval: 1
+  _healInterval: 1.5
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128

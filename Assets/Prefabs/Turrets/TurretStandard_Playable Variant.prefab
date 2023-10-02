@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6603083336585857583}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.75, z: 1}
+  m_LocalPosition: {x: 0, y: 0.26110005, z: 0}
+  m_LocalScale: {x: 0.73484, y: 1.3955281, z: 0.73484}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4643987219809077490}
@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6973893441177297427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.71699995, z: 0.45699978}
+  m_LocalPosition: {x: 0, y: 1.21, z: 0.45699978}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -192,8 +192,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7064957777975915364}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.606, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 1.1955, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.69295, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4643987219809077490}
@@ -311,6 +311,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3632646017408683317, guid: f644ea15fc586194387b00f07a12ea5e,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.3682852
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632646017408683317, guid: f644ea15fc586194387b00f07a12ea5e,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.30914253
+      objectReference: {fileID: 0}
     - target: {fileID: 3632646017408683319, guid: f644ea15fc586194387b00f07a12ea5e,
         type: 3}
       propertyPath: m_Name
@@ -322,6 +332,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d9c54bc77ac75ad42b5d0a2889736299,
         type: 2}
+    - target: {fileID: 8710163821678849376, guid: f644ea15fc586194387b00f07a12ea5e,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.3091425
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710163821678849376, guid: f644ea15fc586194387b00f07a12ea5e,
+        type: 3}
+      propertyPath: m_Extents.y
+      value: 0.6841425
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f644ea15fc586194387b00f07a12ea5e, type: 3}
 --- !u!4 &4643987219809077490 stripped

@@ -18,7 +18,7 @@ MonoBehaviour:
   _areaShotStats:
   - ShotCharacterEffectPack:
       _effectEnum: 1
-      _damage: 7
+      _damage: 0
       _heal: 0
       _staggerTime: 0
       _slowTime: 0
@@ -27,33 +27,33 @@ MonoBehaviour:
       _speedAmount: 0
     AreaCharacterEffectPack:
       _effectEnum: 3
-      _damage: 7
+      _damage: 20
+      _heal: 0
+      _staggerTime: 0
+      _slowTime: 0
+      _slowAmount: 0
+      _speedTime: 0
+      _speedAmount: 0
+    AreaRadius: 2.5
+  - ShotCharacterEffectPack:
+      _effectEnum: 1
+      _damage: 3
+      _heal: 0
+      _staggerTime: 0
+      _slowTime: 0
+      _slowAmount: 0
+      _speedTime: 0
+      _speedAmount: 0
+    AreaCharacterEffectPack:
+      _effectEnum: 3
+      _damage: 20
       _heal: 0
       _staggerTime: 0.1
       _slowTime: 0
       _slowAmount: 0
       _speedTime: 0
       _speedAmount: 0
-    AreaRadius: 2
-  - ShotCharacterEffectPack:
-      _effectEnum: 1
-      _damage: 10
-      _heal: 0
-      _staggerTime: 0
-      _slowTime: 0
-      _slowAmount: 0
-      _speedTime: 0
-      _speedAmount: 0
-    AreaCharacterEffectPack:
-      _effectEnum: 3
-      _damage: 10
-      _heal: 0
-      _staggerTime: 0.2
-      _slowTime: 0
-      _slowAmount: 0
-      _speedTime: 0
-      _speedAmount: 0
-    AreaRadius: 2.5
+    AreaRadius: 3
   - ShotCharacterEffectPack:
       _effectEnum: 1
       _damage: 12
@@ -65,11 +65,11 @@ MonoBehaviour:
       _speedAmount: 0
     AreaCharacterEffectPack:
       _effectEnum: 3
-      _damage: 20
+      _damage: 30
       _heal: 0
-      _staggerTime: 0.2
+      _staggerTime: 0.1
       _slowTime: 0
       _slowAmount: 0
       _speedTime: 0
       _speedAmount: 0
-    AreaRadius: 3
+    AreaRadius: 4

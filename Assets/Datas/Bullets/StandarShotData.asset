@@ -15,7 +15,7 @@ MonoBehaviour:
   _shotStats:
   - ShotCharacterEffectPack:
       _effectEnum: 1
-      _damage: 10
+      _damage: 20
       _heal: 0
       _staggerTime: 0
       _slowTime: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
       _speedAmount: 0
   - ShotCharacterEffectPack:
       _effectEnum: 1
-      _damage: 15
+      _damage: 30
       _heal: 0
       _staggerTime: 0
       _slowTime: 0
@@ -33,9 +33,9 @@ MonoBehaviour:
       _speedAmount: 0
   - ShotCharacterEffectPack:
       _effectEnum: 3
-      _damage: 20
+      _damage: 30
       _heal: 0
-      _staggerTime: 0.2
+      _staggerTime: 0.1
       _slowTime: 0
       _slowAmount: 0
       _speedTime: 0

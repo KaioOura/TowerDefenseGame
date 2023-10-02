@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426951872990349494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.66, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.632, z: 0}
+  m_LocalScale: {x: 0.77019, y: 0.61476564, z: 0.77019}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4762607099605207469}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 32911ffe8501dc44381a3e7a7768f718, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,6 +150,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7810901139588557957, guid: 9759a2af2c587404b9956549ff6a586b,
+        type: 3}
+      propertyPath: _enemyBase
+      value: 
+      objectReference: {fileID: 3144548136041916713}
     m_RemovedComponents:
     - {fileID: 3763667984872754958, guid: 9759a2af2c587404b9956549ff6a586b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9759a2af2c587404b9956549ff6a586b, type: 3}
@@ -195,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2385acc8d36c38b428f0e200d28d499a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: 6f5d1b6a3a148e443bc07c84d4c392b1, type: 2}
+  _enemyData: {fileID: 11400000, guid: d18d53ea56ed4844faf93408178e5aa2, type: 2}
   _healthSystem: {fileID: 1886246923710609977}
   _navMeshAgent: {fileID: 2133574280867979298}
   TargetSpot: {fileID: 0}

@@ -6,12 +6,14 @@ using UnityEngine;
 public class TurretData : ObjectData
 {
     [SerializeField] private TurretShotBase _turretShot;
+    [SerializeField] private float _buletSpeed;
     [SerializeField] private TurretStats[] _turretLevel;
     [SerializeField] private ShotTravelEnum _shotTravelType;
     [SerializeField] private LayerMask _enemyLayer;
 
 
     public TurretShotBase TurretShot => _turretShot;
+    public float BulletSpeed => _buletSpeed;
     public TurretStats[] TurretLevel => _turretLevel;
     public ShotTravelEnum ShotTravelType => _shotTravelType;
     public LayerMask EnemyLayer => _enemyLayer;
@@ -30,6 +32,7 @@ public class TurretData : ObjectData
 [System.Serializable]
 public class TurretStats
 {
+    public int Price;
     public float Range;
     public float FireRate;
 }

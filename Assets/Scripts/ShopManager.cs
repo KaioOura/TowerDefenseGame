@@ -16,6 +16,10 @@ public class ShopManager : MonoBehaviour
 
     public int gold = 10000;
 
+    [Header("Broadcaster")]
+    [SerializeField]
+    private BoolEventChannel OnEnterBuildEventChannel;
+
     public event Action OnPlaceObject;
     public event Action<ObjectData> OnRequestObjecPlacement;
 
@@ -51,12 +55,16 @@ public class ShopManager : MonoBehaviour
         OnRequestObjecPlacement?.Invoke(objectData);
         BuildManager.OnObjectPlaced += OnBuy;
 
+        OnEnterBuildEventChannel.RaiseEvent(true);
+
     }
 
     bool IsPurchaseValid(ObjectData objectData)
     {
-        if (objectData.Price > gold)
+        if (!Shop.IsPurchaseValid(objectData.Price))
             return false;
+
+        //Checar limite de tal turret
 
         //Limite atingido
 
@@ -65,20 +73,9 @@ public class ShopManager : MonoBehaviour
 
     public void OnBuy(ObjectData objectData)
     {
+        OnEnterBuildEventChannel.RaiseEvent(false);
         OnRequestObjecPlacement -= BuildManager.PreparePlacement;
         BuildManager.OnObjectPlaced -= OnBuy;
-        RemoveGold(objectData.Price);
-    }
-
-    void RemoveGold(int valueToRemove)
-    {
-        gold -= valueToRemove;
-        gold = Mathf.Clamp(gold, 0, 99999);
-    }
-
-    void AddGold(int valueToRemove)
-    {
-        gold += valueToRemove;
-        gold = Mathf.Clamp(gold, 0, 99999);
+        Shop.RemovePlayerCurrency(objectData.Price);
     }
 }

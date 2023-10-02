@@ -27,9 +27,10 @@ public class TurretAreaShot : TurretShotBase
         _radius = _currentShotStats.AreaRadius;
     }
 
-    public override void Initialize(int level, ShotTravelEnum shotTravelEnum, ITargetable target)
+    public override void Initialize(int level,  float speed, ShotTravelEnum shotTravelEnum, ITargetable target)
     {
         ShotTravelType = shotTravelEnum;
+        Speed = speed;
         UpdateShotStats(level);
 
         LaunchShot(target);
